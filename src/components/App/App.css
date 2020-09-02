@@ -14,6 +14,7 @@
   border: 1px solid black;
   border-radius: 5px;
   padding: 10px;
+  background-color: white;
 }
 
 .news-form {
@@ -21,12 +22,7 @@
   flex-direction: column;
   width: 500px;
   align-items: center;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-
+  margin: 0px auto
 }
 
 .main-img {
@@ -36,5 +32,29 @@
 
 .content {
   max-width: 1200px;
+  min-height: 100vh;
   margin: 0px auto;
+  background-color: #d8d8d8;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.finded-text {
+  background-color: yellow;
+}
+
+body {
+  background-color: #171515;
+}
+
+.title {
+  color: white;
+}
+
+.news-item {
+  font-size: 24px;
+}
+
+.date {
+  font-size: 12px;
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './components/App/App.js';
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import rootReducer from './reducers-index.js';
+import rootReducer from './reducers/reducers-index.js';
 
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f);

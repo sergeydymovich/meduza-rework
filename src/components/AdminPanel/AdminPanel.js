@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux'
-import { addNew } from './actions.js';
+import { addNew } from '../../actions/news.actions.js';
 
 function AdminPanel(props) {
 
@@ -14,7 +14,7 @@ function AdminPanel(props) {
 
   return (
    <form className="news-form" onSubmit={(e) => submitForm(e)}>
-     <label>Добавить новость</label>
+     <label>Заголовок</label>
      <textarea value={news} onChange={ (e) => setNews(e.target.value)} />
      <button type="submit" >Добавить</button>
    </form>
