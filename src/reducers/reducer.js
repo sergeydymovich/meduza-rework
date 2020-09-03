@@ -1,11 +1,12 @@
-import {  TOOGLE_ADMINPANEL, ADD_NEW, FILTER_NEWS } from "../actions/news.actions.js";
+import {  TOOGLE_ADMINPANEL, ADD_NEW, FILTER_NEWS, TOOGLE_POPAP } from "../actions/news.actions.js";
 
 const INITIAL_STATE = {
 		isAdmin: true,
 		newsArr: [],
 		showAdminPanel: false,
 		filteredArr: [],
-		filterWord: ""		
+		filterWord: "",
+		showPopap: false,		
 }
 
  const news = (state = INITIAL_STATE, action) => {
@@ -32,6 +33,11 @@ const INITIAL_STATE = {
 			...state,
 			filteredArr: state.newsArr.filter( elem => elem.content.includes(action.payload.value)),
 			filterWord: action.payload.value,
+		}
+		case TOOGLE_POPAP:
+		return {
+			...state,
+			showPopap: !state.showPopap
 		}
 		
 		default: 

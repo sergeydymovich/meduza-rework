@@ -2,6 +2,7 @@ import React  from 'react';
 import { connect } from 'react-redux'
 import { declOfNum }  from "../../utils/date.utils.js"
 import { filterString }  from "../../utils/string.utils.js"
+import styles from "./NewsItem.module.css"
 
 function NewsItem(props) {
 
@@ -20,20 +21,18 @@ function NewsItem(props) {
       return [' день ', ' дня ', ' дней '] 
     } 
 
-     
-   
     let filteredArr = props.filterWord ? filterString(props.content, props.filterWord) : "";
-    console.log(props.content, props.filterWord)
-    console.log(filteredArr.length, filteredArr)
+
   return (
-   <li className="news-item">
-     {filteredArr.length > 1 ?
+   <li className={styles.item}>
+     {props.filterWord.length > 0 ?
         filteredArr.map(elem => (
-          elem === props.filterWord ? <strong className="finded-text">{elem}</strong> : elem
-        )) :
+          elem === props.filterWord ? <strong className={styles.text}>{elem}</strong> : elem
+        )) 
+        :
         props.content
      }
-      <p className="date">
+      <p className={styles.date}>
         {timeLeft(minutesLeft) ? timeLeft(minutesLeft) : ""} {declOfNum( timeLeft(minutesLeft), textForms(minutesLeft) )} назад 
         </p>
    </li>

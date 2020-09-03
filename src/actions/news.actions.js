@@ -2,6 +2,7 @@
 export const TOOGLE_ADMINPANEL = "TOOGLE_ADMINPANEL";
 export const ADD_NEW = "ADD_NEW";
 export const FILTER_NEWS = "FILTER_NEWS";
+export const TOOGLE_POPAP = "TOOGLE_POPAP"
 
 export const toogleAdminPanel = (amount) => {
 	return {
@@ -29,5 +30,12 @@ export const filterNews = (value) => {
 		payload: {
 			value,		
 		},
+	}
+}
+
+export const tooglePopap = () => {
+	return {
+		type: TOOGLE_POPAP,
+		
 	}
 }

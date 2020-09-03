@@ -9,23 +9,7 @@
   padding: 0;
 }
 
-.news-item {
-  margin-bottom: 10px;
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: white;
-}
-
-.news-form {
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  align-items: center;
-  margin: 0px auto
-}
-
-.main-img {
+.blocknote {
   width: 64px;
   height: 64px;
 }
@@ -39,9 +23,6 @@
   border-radius: 10px;
 }
 
-.finded-text {
-  background-color: yellow;
-}
 
 body {
   background-color: #171515;
@@ -51,10 +32,3 @@ body {
   color: white;
 }
 
-.news-item {
-  font-size: 24px;
-}
-
-.date {
-  font-size: 12px;
-}
