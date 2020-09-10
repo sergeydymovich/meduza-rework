@@ -1,11 +1,11 @@
 .adminPage {
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: space-between;
 }
 .content {
-  max-width: 1200px;
-  min-width: 900px;
+
+  width: 80%;
   min-height: 85vh;
   background-color: #d8d8d8;
   padding: 20px;

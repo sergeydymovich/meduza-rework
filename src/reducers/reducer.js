@@ -1,4 +1,4 @@
-import { ADD_NEW, FILTER_NEWS, LOG_IN, ADD_CATEGORY, REMOVE_CATEGORY, CHANGE_CATEGORY, SELECT_ARTICLE } from "../actions/news.actions.js";
+import { ADD_NEW, FILTER_NEWS, LOG_IN, ADD_CATEGORY, REMOVE_CATEGORY, CHANGE_CATEGORY } from "../actions/news.actions.js";
 import { v4 as uuidv4 } from "uuid";
 
 const INITIAL_STATE = {
@@ -7,27 +7,27 @@ const INITIAL_STATE = {
 		{
 			content: "Омский врач заявил о проблемах Навального с пищеварением из-за диеты. Эксперты в Германии выяснили, что политика отравили ядом из группы «Новичок»",
 			date: new Date(),
-			id: uuidv4(),
+			id: "3434223535",
 		},
 		{
 			content: "Apple за день потеряла 180 миллиардов долларов капитализации — это рекордное падение в истории",
 			date: new Date(),
-			id: uuidv4(),
+			id: "1232132132",
 		},
 		{
 			content: "The Insider: болгарский предприниматель, которого пытались убить «Новичком», не смог получить свои анализы из финской лаборатории",
 			date: new Date(),
-			id: uuidv4(),
+			id: "757457457",
 		},
 		{
 			content: "«Суверенитет не может быть предметом торга». Тихановская — о переговорах Лукашенко с Мишустиным",
 			date: new Date(),
-			id: uuidv4(),
+			id: "264547",
 		},
 		{
 			content: "В немецком городе Золинген обнаружили тела пятерых детей. Их мать пыталась покончить с собой",
 			date: new Date(),
-			id: uuidv4(),
+			id: "34345479",
 		},
 		
 	],
@@ -92,11 +92,6 @@ const news = (state = INITIAL_STATE, action) => {
 					: 
 					elem 
 			))
-		};
-	case SELECT_ARTICLE:
-		return {
-			...state,
-			activeArticle: action.payload.id,
 		};
 	default: 
 		return state;

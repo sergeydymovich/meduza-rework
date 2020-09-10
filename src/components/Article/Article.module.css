@@ -1,0 +1,12 @@
+.container {
+    min-height: 75vh;
+    background-color: #d8d8d8;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.title {
+	font-size: 37px;
+	line-height: 42px;
+	font-weight: 400;
+}

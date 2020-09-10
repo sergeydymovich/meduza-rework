@@ -59,11 +59,3 @@ export const changeCategory = (id ,value) => (
 	}
 );
 
-export const selectArticle = (id) => (
-	{
-		type: SELECT_ARTICLE,
-		payload: {
-			id,			
-		},
-	}
-);
