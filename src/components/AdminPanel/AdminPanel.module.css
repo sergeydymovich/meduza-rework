@@ -1,7 +1,33 @@
-.form {
+.adminPage {
   display: flex;
-  flex-direction: column;
-  width: 500px;
-  align-items: center;
-  margin: 0px auto
+  width: 100%;
+  justify-content: center;
+}
+.content {
+  max-width: 1200px;
+  min-width: 900px;
+  min-height: 85vh;
+  background-color: #d8d8d8;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.panel {
+  max-width: 300px;
+  min-width: 200px;
+  height: 85vh;
+  background-color: #d8d8d8;
+  padding: 20px;
+  border-radius: 10px;
+  margin-right: 30px;
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+}
+
+.navItem {
+  padding: 5px;
+  color: black;
 }

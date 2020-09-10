@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  color: white;
+  letter-spacing: 1.7px;
+}
+
+.search {
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.loginBtn {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.adminText {
+  color: white;
+}
+
+.admin {
+  display: flex;
+}
+
+.god {
+  margin-right: 7px;
+}

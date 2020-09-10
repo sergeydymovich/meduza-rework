@@ -1,41 +1,69 @@
-
-export const TOOGLE_ADMINPANEL = "TOOGLE_ADMINPANEL";
 export const ADD_NEW = "ADD_NEW";
 export const FILTER_NEWS = "FILTER_NEWS";
-export const TOOGLE_POPAP = "TOOGLE_POPAP"
-
-export const toogleAdminPanel = (amount) => {
-	return {
-		type: TOOGLE_ADMINPANEL,
-		payload: {
-			amount,
-			
-		},
-	}
-}
-
-export const addNew = (value) => {
-	return {
+export const LOG_IN = "LOG_IN";
+export const ADD_CATEGORY = "ADD_CATEGORY";
+export const REMOVE_CATEGORY = "REMOVE_CATEGORY";
+export const CHANGE_CATEGORY = "CHANGE_CATEGORY";
+export const SELECT_ARTICLE = "SELECT_ARTICLE";
+export const addNew = (value) => (
+	{
 		type: ADD_NEW,
 		payload: {
 			value,
 			
 		},
 	}
-}
-
-export const filterNews = (value) => {
-	return {
+);
+	
+export const filterNews = (value) => (
+	{
 		type: FILTER_NEWS,
 		payload: {
 			value,		
 		},
 	}
-}
+);
 
-export const tooglePopap = () => {
-	return {
-		type: TOOGLE_POPAP,
-		
+export const logIn = () => (
+	{
+		type: LOG_IN,
 	}
-}
+);
+
+export const addCategory = (value) => (
+	{
+		type: ADD_CATEGORY,
+		payload: {
+			value,
+			
+		},
+	}
+);
+
+export const removeCategory = (id) => (
+	{
+		type: REMOVE_CATEGORY,
+		payload: {
+			id,			
+		},
+	}
+);
+
+export const changeCategory = (id ,value) => (
+	{
+		type: CHANGE_CATEGORY,
+		payload: {
+			value,
+			id,
+		},
+	}
+);
+
+export const selectArticle = (id) => (
+	{
+		type: SELECT_ARTICLE,
+		payload: {
+			id,			
+		},
+	}
+);

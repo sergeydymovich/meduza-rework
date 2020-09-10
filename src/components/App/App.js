@@ -1,71 +1,38 @@
-import React, {useState} from 'react';
-import styles from './App.module.css';
-import NewsItem from "../NewsItem/NewsItem.js"
-import AdminPanel from "../AdminPanel/AdminPanel.js"
-import Login from "../Login/Login.js"
-import icon from "../../assets/icon.png"
-import { connect } from 'react-redux'
-import { toogleAdminPanel, filterNews } from '../../actions/news.actions.js';
+import React from "react";
+import styles from "./App.module.css";
+import Header from "../Header/Header.js";
+import NewsFeed from "../NewsFeed/NewsFeed.js";
+import AdminPanel from "../AdminPanel/AdminPanel.js";
+import Article from "../Article/Article.js";
+import { useSelector } from "react-redux";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect
+} from "react-router-dom";
 
+function App() {
 
-function App(props) {
+	const isAdmin = useSelector(state => state.news.isAdmin);
+	const activeArticle = useSelector(state => state.news.activeArticle);
 
-  const [filter, setFilter] = useState("");
-
-  const tooglePanel = () => {
-    props.tooglePanel()
-  }
-
-  const filterNews = (e) => {
-    setFilter(e.target.value)
-    props.filterNews(e.target.value)
-  }
-
-  const news = props.filteredArr.length > 0 || filter  ? props.filteredArr : props.newsArr;
-
-  return (
-    <div className="App">
-      <div className={styles.header}>
-          <h1 className={styles.title}>DYMOVICH NEWS</h1>
-          { props.isAdmin && <img className={styles.blocknote} src={icon} alt="xxx" onClick={ () => tooglePanel()} />}
-          <div className="header-input">
-          <input type="text" onChange={ (e) => filterNews(e)} placeholder="Search news.." />
-          <Login /> 
-          </div>    
-      </div> 
-      {props.showPanel && <AdminPanel />} 
-      <div className={styles.content}>
-        {!props.filteredArr.length &&  filter && <strong>НИЧЕГО НЕ НАЙДЕНО...</strong>}
-        <ul className={styles.news}>
-          {news.map( (elem, i) => (
-            <NewsItem
-            key={i}
-            content={elem.content}
-            time={elem.date}
-            />
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
+	return (
+		<Router>	
+			<div className={styles.App}>
+				{!isAdmin && <Redirect exact from="/admin" to="/" />}
+				<Header isAdmin={isAdmin} />
+				<Switch>
+					<Route exact path="/">		
+						<NewsFeed />
+					</Route>
+					{activeArticle && <Route path={"/"+activeArticle} component={Article}></Route> }
+					
+					{isAdmin && <Route path="/admin" component={AdminPanel} />}
+				</Switch>			
+			</div>
+		</Router>	
+	);
 }
 
-const mapDispatchToProps =  dispatch => ({
-  tooglePanel: () => dispatch(toogleAdminPanel()),
-  filterNews: (value) => dispatch(filterNews(value)),
-  
-})
-
-const mapStateToProps = state => ({
-  isAdmin: state.news.isAdmin,
-  showPanel: state.news.showAdminPanel,
-  newsArr: state.news.newsArr,
-  filteredArr: state.news.filteredArr
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
-
-
+export default App;

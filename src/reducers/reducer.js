@@ -1,22 +1,45 @@
-import {  TOOGLE_ADMINPANEL, ADD_NEW, FILTER_NEWS, TOOGLE_POPAP } from "../actions/news.actions.js";
+import { ADD_NEW, FILTER_NEWS, LOG_IN, ADD_CATEGORY, REMOVE_CATEGORY, CHANGE_CATEGORY, SELECT_ARTICLE } from "../actions/news.actions.js";
+import { v4 as uuidv4 } from "uuid";
 
 const INITIAL_STATE = {
-		isAdmin: true,
-		newsArr: [],
-		showAdminPanel: false,
-		filteredArr: [],
-		filterWord: "",
-		showPopap: false,		
-}
+	isAdmin: false,
+	newsArr: [
+		{
+			content: "Омский врач заявил о проблемах Навального с пищеварением из-за диеты. Эксперты в Германии выяснили, что политика отравили ядом из группы «Новичок»",
+			date: new Date(),
+			id: uuidv4(),
+		},
+		{
+			content: "Apple за день потеряла 180 миллиардов долларов капитализации — это рекордное падение в истории",
+			date: new Date(),
+			id: uuidv4(),
+		},
+		{
+			content: "The Insider: болгарский предприниматель, которого пытались убить «Новичком», не смог получить свои анализы из финской лаборатории",
+			date: new Date(),
+			id: uuidv4(),
+		},
+		{
+			content: "«Суверенитет не может быть предметом торга». Тихановская — о переговорах Лукашенко с Мишустиным",
+			date: new Date(),
+			id: uuidv4(),
+		},
+		{
+			content: "В немецком городе Золинген обнаружили тела пятерых детей. Их мать пыталась покончить с собой",
+			date: new Date(),
+			id: uuidv4(),
+		},
+		
+	],
+	filteredArr: [],
+	filterWord: "",
+	categories: [],
+	activeArticle: "",	
+};
 
- const news = (state = INITIAL_STATE, action) => {
+const news = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case TOOGLE_ADMINPANEL: 
-		return {
-			...state,
-			showAdminPanel: !state.showAdminPanel,
-		}
-		case ADD_NEW: 
+	case ADD_NEW: 
 		return {
 			...state,
 			newsArr: [
@@ -27,23 +50,58 @@ const INITIAL_STATE = {
 				}
 			],
 			filteredArr: [],
-		}
-		case FILTER_NEWS:
+		};
+	case FILTER_NEWS:
 		return {
 			...state,
 			filteredArr: state.newsArr.filter( elem => elem.content.includes(action.payload.value)),
 			filterWord: action.payload.value,
-		}
-		case TOOGLE_POPAP:
+		};
+	case LOG_IN:
 		return {
 			...state,
-			showPopap: !state.showPopap
-		}
-		
-		default: 
-			return state;
+			isAdmin: true,
+		};
+	case ADD_CATEGORY:
+		return {
+			...state,
+			categories: [
+				...state.categories,
+				{
+					id: uuidv4(),
+					name:  action.payload.value,
+					author: "ADMIN",
+					date: new Date(),	
+				}
+			],
+		};
+	case REMOVE_CATEGORY:
+		return {
+			...state,
+			categories: state.categories.filter(elem => elem.id !== action.payload.id)
+		};
+	case CHANGE_CATEGORY:
+		return {
+			...state,
+			categories: state.categories.map(elem =>  (
+				elem.id === action.payload.id ? 
+					{ 
+						...elem,
+						name : action.payload.value
+					}
+					: 
+					elem 
+			))
+		};
+	case SELECT_ARTICLE:
+		return {
+			...state,
+			activeArticle: action.payload.id,
+		};
+	default: 
+		return state;
 
 	}
-}
+};
 
 export default news;
