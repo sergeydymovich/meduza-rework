@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100px;
 }
 
 .title {
@@ -14,7 +15,7 @@
   padding: 5px;
   border: none;
   font-size: 20px;
-  margin-right: 10px;
+  position: relative;
 }
 
 .loginBtn {
@@ -22,6 +23,7 @@
   border: none;
   border-radius: 5px;
   font-size: 20px;
+  margin-left: 10px;
 }
 
 .adminText {
@@ -30,8 +32,42 @@
 
 .admin {
   display: flex;
+  align-items: center;
 }
 
 .god {
   margin-right: 7px;
+}
+
+.logoutBtn {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.question {
+  color:white;
+  position: absolute;
+  top: 70px;
+  text-decoration: underline;
+  padding: 5px;
+}
+
+.headerInput {
+  display: flex;
+  align-items: center;
+}
+
+.close {
+  width: 20px;
+  position: absolute;
+  left: 230px;
+  top: 13px;
 }

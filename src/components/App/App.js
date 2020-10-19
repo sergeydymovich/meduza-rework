@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./App.module.css";
 import Header from "../Header/Header.js";
-import NewsFeed from "../NewsFeed/NewsFeed.js";
+import Footer from "../Footer/Footer.js";
+import Feed from "../Feed/Feed.js";
 import AdminPanel from "../AdminPanel/AdminPanel.js";
-import Article from "../Article/Article.js";
-import { useSelector } from "react-redux";
+import Registration from "../Registration/Registration.js";
+import LoginPopup from "../Login/LoginPopup.js";
+import { login } from "../../actions/user.actions.js";
+import { getArticles } from "../../actions/articles.actions.js";
+import ArticleContainer from "../Article/ArticleContainer.js";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "../../utils/axios.utils";
+
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -12,18 +19,37 @@ import {
 } from "react-router-dom";
 
 function App() {
+	const dispatch = useDispatch();
+	const articlesCount = useSelector(state => state.articles).length;
+	
+	useEffect(() => {
+		
+		const name = localStorage.getItem("name") || "";
+		const token = localStorage.getItem("token") || "";
 
-	const isAdmin = useSelector(state => state.news.isAdmin);
+		dispatch(login(name, token));
+
+		axios.GET(`/articles?limit=7&offset=${articlesCount}`).then(response => {	
+			dispatch(getArticles(response.data.articles)); 				
+		}).catch(error =>  {
+			console.log(error);
+
+		});
+			
+	}, []);
 
 	return (
 		<Router>	
 			<div className={styles.App}>
-				<Header isAdmin={isAdmin} />
+				<Header />
 				<Switch>
-					<Route exact path="/" component={NewsFeed} />				
-					<Route path={"/news/:id"} component={Article} />				
-					{isAdmin && <Route path="/admin" component={AdminPanel} />}
-				</Switch>			
+					<Route exact path="/" component={Feed} />			
+					<Route path="/articles/:id" component={ArticleContainer} />				
+					<Route path="/admin" component={AdminPanel} />
+					<Route path="/registration" component={Registration} />
+					<Route path="/login" component={LoginPopup} />
+				</Switch>	
+				<Footer />		
 			</div>
 		</Router>	
 	);

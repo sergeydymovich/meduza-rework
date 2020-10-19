@@ -2,61 +2,57 @@ import React, { useState, useEffect } from "react";
 import styles from "./LoginPopup.module.css";
 import cross from "../../assets/cross.svg";
 import cn from "classnames/bind";
-import { logIn } from "../../actions/news.actions.js";
+import { login } from "../../actions/user.actions.js";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import axios from "../../utils/axios.utils";
+import { Link } from "react-router-dom";
 
-function LoginPopup(props)  {
+function LoginPopup()  {
 	
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const [email, setEmail] = useState("");
-	const [validEmail, setValidEmail] = useState(true);
 	const [password, setPassword] = useState("");
-	const [validPassword, setValidPassword] = useState(true);
-			
+	const [error, setError] = useState(false);
+
 	const onSubmit = (e) => {
-
 		e.preventDefault();
-		const isValid = validate();
+		const user = {
+			email,
+			password
+		};
 
-		if (isValid) {
-			dispatch(logIn());
-			props.show();
-			history.push("/admin/news");
-		} 
-	};
+		axios.POST("/signin", user).then(response => {
+			const { name, token } = response.data;
 
-	const validate = () => {
-		let isValid = true;
-		const re = /\S+@\S+\.\S+/;
+			dispatch(login(name, token));
+			history.push("/");
+			localStorage.setItem("name",	name );
+			localStorage.setItem("token",	token );
+			
+		}).catch(() =>  {
+			setError(true);
+		});
 
-		if (!re.test(email)) {
-			setValidEmail(false);
-			isValid = false;
-		} 
-		if (password.length < 6) {
-			setValidPassword(false);
-			isValid = false;
-		}
-		if (!validEmail || !validPassword || !re.test(email) || password.length < 6) {
-			isValid = false;
-		} 
-
-		return isValid;
 	};
 
 	const changeEmail = (e) => {
-		setValidEmail(true);
 		setEmail(e.target.value);
+		setError(false);
 	};
 
 	const changePassword = (e) => {
-		setValidPassword(true);
 		setPassword(e.target.value);
+		setError(false);
 	};
 
 	useEffect(() => {
+		const token = localStorage.getItem("token") || "";
+
+		if (token) {
+			history.push("/");
+		}
 		document.documentElement.style.overflow = "hidden";
 		return () => {
 			document.documentElement.style.overflow = "visible";
@@ -64,18 +60,22 @@ function LoginPopup(props)  {
 	}, []);
 
 	return (
-		<div className={styles.popup}>
+		<div className={styles.popup}>	
 			<form className={styles.content} onSubmit={onSubmit}>
+				<Link to="/">
+					<img src={cross} className={styles.close} alt="close-button" />
+				</Link>	
 				<label className={styles.popupLabel}>Email:</label>
-				<input name="email" className={ cn(styles.popupInput, { [styles.error]: !validEmail } ) }  onChange={changeEmail}></input>
-				{!validEmail && <strong>введите корректный email!</strong>}
+				<input name="email" className={ cn(styles.popupInput, { [styles.error]: error } ) }  onChange={changeEmail}></input>
 				<label className={styles.popupLabel}>Password</label>
-				<input name="password" className={ cn(styles.popupInput, { [styles.error]: !validPassword } )} type="text" onChange={changePassword}></input>
-				{!validPassword && <strong>введите корректный пароль!</strong>}
+				<input name="password" className={ cn(styles.popupInput, { [styles.error]: error } )} type="text" onChange={changePassword}></input>
+				{error && <strong>неверное имя пользователя или пароль!</strong>}
 				<button className={styles.submitBtn}>Отправить</button>
-				<img src={cross} className={styles.close} alt="close-button" onClick={props.closePopup} />
-			</form>
-		</div>
+				<Link to="/registration">
+					<p>Зарегистрироваться</p>
+				</Link>
+			</form>		
+		</div>			
 	); 
 }
 

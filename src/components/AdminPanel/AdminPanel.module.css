@@ -4,11 +4,10 @@
   justify-content: space-between;
 }
 .content {
-
+  position: relative;
   width: 80%;
   min-height: 85vh;
   background-color: #d8d8d8;
-  padding: 20px;
   border-radius: 10px;
 }
 
@@ -28,6 +27,9 @@
 }
 
 .navItem {
-  padding: 5px;
+  padding: 5px 10px;
   color: black;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }

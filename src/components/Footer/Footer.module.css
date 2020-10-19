@@ -1,0 +1,19 @@
+
+.footer {
+	color: white;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+	background-color: #171515;
+	padding: 10px;
+}
+
+.email {
+	margin: 0px 10px;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+}

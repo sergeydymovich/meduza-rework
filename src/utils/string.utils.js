@@ -1,28 +1,31 @@
-
 export const filterString = (str , word) => {
 
-	let result = [];
+	const indexArr = [];  
+	const lowerStr = str.toLowerCase();
+	const lowerWord = word.toLowerCase();
 
-	for(let i=0; i < str.length; i++){
-		let x = str.indexOf(word, i);
+	for(let i = 0; i < str.length; i++){
+		const x = lowerStr.indexOf(lowerWord, i);
 
 		if (x === -1) continue;
 		i = x ;
-		result.push(x);
+		indexArr.push(x);
 
 	}
 
-	let splitStr = str.split("");
-	let result1 = [];
+	const splitStr = str.split("");
+	let result = [];
 
 	for (let i = 0; i < splitStr.length; i++) {
 		
-		if (result.includes(i)) {   
-			result1.push(word);
+		if (indexArr.includes(i)) { 
+			const subStr = str.slice(i, i + word.length);
+			
+			result.push(subStr);
 			i = i + word.length - 1;  
 		} else {   
-			result1.push(splitStr[i]);     
+			result.push(splitStr[i]);     
 		}
 	}
-	return result1;
+	return result;
 };
