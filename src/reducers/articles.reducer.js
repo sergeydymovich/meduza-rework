@@ -1,4 +1,4 @@
-import { GET_ARTICLES, CHANGE_ARTICLE, ADD_ARTICLE, REMOVE_ARTICLE } from "../actions/articles.actions.js";
+import { GET_ARTICLES, CHANGE_ARTICLE, ADD_ARTICLE, DELETE_ARTICLE } from "../actions/articles.actions.js";
 
 const articles = (state = [], action) => {
 	switch (action.type) {
@@ -9,14 +9,15 @@ const articles = (state = [], action) => {
 	case CHANGE_ARTICLE:
 		return [
 			...state.map(elem => (
-				elem._id === action.payload.article._id ? action.payload.article : elem
+				elem._id === action.payload.article._id ? { ...action.payload.article, createdAt: elem.createdAt } : elem
 			))
 		];
 	case ADD_ARTICLE:
 		return [
-			...state, action.payload.article
+			action.payload.article,
+			...state
 		];
-	case REMOVE_ARTICLE:
+	case DELETE_ARTICLE:
 		return [
 			...state.filter(el => el._id !== action.payload.id)
 		]; 		

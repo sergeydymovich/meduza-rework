@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Feed.module.css";
-import FeedItem from "../FeedItem/FeedItem.js";
 import Loader from "../Loader/Loader.js";
 import { arrModify }  from "../../utils/arrModify.utils.js";
 import { useSelector, useDispatch } from "react-redux";
 import { getArticles } from "../../actions/articles.actions.js";
 import axios from "../../utils/axios.utils";
+import FeedItemContainer from "../FeedItem/FeedItemContainer";
 
 function Feed() {
 
@@ -40,13 +40,15 @@ function Feed() {
 	},[articlesState]);
 
 	const getMoreArticles = () => {
+		setIsloading(true);
 		axios.GET(`/articles?limit=7&offset=${articlesCurrentAmount}`).then(res => {	
 			dispatch(getArticles(res.data.articles)); 
-
+			setIsloading(false);
 			setArticlesTotalAmount(res.data.count);
 								
 		}).catch(error =>  {
 			console.log(error);
+			setIsloading(false);
 		});
 
 	};
@@ -59,14 +61,9 @@ function Feed() {
 						<h2 className={styles.title}>{day}</h2>
 						<ul className={styles.articles}>
 							{articles[i][day].map( (article) => (
-								<FeedItem
+								<FeedItemContainer
 									key={article._id}
-									title={article.title}
-									createdAt={article.createdAt}
-									id={article._id}
-									category={article.category}
-									image={article.image}
-									content={article.content}
+									article={article}
 								/>
 							))}
 						</ul>					
@@ -78,7 +75,7 @@ function Feed() {
 					<Loader />	
 				</div>			
 				}
-				{!noArticles && articlesCurrentAmount && <button className={styles.loadBtn} onClick={getMoreArticles}>показать еще</button>}
+				{!noArticles && articlesCurrentAmount && !isLoading && <button className={styles.loadBtn} onClick={getMoreArticles}>показать еще...</button>}
 			</div>
 		</>
 	);

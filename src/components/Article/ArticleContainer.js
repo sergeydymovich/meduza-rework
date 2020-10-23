@@ -5,15 +5,16 @@ import axios from "../../utils/axios.utils";
 import { getArticles } from "../../actions/articles.actions.js";
 import Loader from "../Loader/Loader.js";
 import styles from "./Article.module.css";
+import { useParams } from "react-router-dom";
 
-function ArticleContainer(props) {
+function ArticleContainer() {
 
+	const{ id } = useParams();
 	const dispatch = useDispatch();
-	const id = props.match.params.id;
 	const article = useSelector(state => state.articles.find(el => el._id === id));	
 	const [isLoading, setIsLoading] = useState(false);
 	const [isFound, setIsFound] = useState(true);
-		
+
 	useEffect(() => {
 		if (!article) {
 		

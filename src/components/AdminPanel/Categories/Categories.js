@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import styles from "./Categories.module.css";
 import { useSelector } from "react-redux";
 import cn from "classnames";
-import CategoriesRow from "./CategoriesRow.js";
-import { isExist }  from "../../../utils/isExist.utils.js";
 import { addCategory } from "../../../actions/categories.actions.js";
 import { useDispatch } from "react-redux";
 import axios from "../../../utils/axios.utils";
+import CategoriesContainer from "./CategoriesContainer.js";
 
 function Categories() {
 
+	console.log("render categories");
 	const dispatch = useDispatch();
 	const user =	useSelector(state => state.user);
 	const categories = useSelector(state => state.categories);
@@ -18,26 +18,17 @@ function Categories() {
 
 	const submitForm = (e) => {
 		e.preventDefault();
-		const isValidate = isExist("name", category, categories);
+		const obj = {
+			name: category,	
+			author: user.name,
+		};
 
-		if (!isValidate) {
-			let obj = {
-				name: category,	
-				author: user.name,
-			};
-
-			axios.POST("/categories", obj).then((res) => {
-
-				dispatch(addCategory(res.data.category));
-			
-				setCategory("");
-			}).catch(() =>  {
-				console.log("серверная ошибка");
-			});
-
-		} else {
+		axios.POST("/categories", obj).then((res) => {
+			dispatch(addCategory(res.data.category));
+			setCategory("");
+		}).catch(() =>  {
 			setError(true);
-		}
+		});
 		
 	};
 
@@ -45,7 +36,7 @@ function Categories() {
 		setCategory(e.target.value);
 		setError(false);
 	};
-	
+
 	return (
 		<div className={styles.container}>
 			<p className={styles.title}>Категории</p>
@@ -61,14 +52,10 @@ function Categories() {
 				</thead>
 				<tbody>
 					{categories && categories.map((elem, i) => (					
-						<CategoriesRow
+						<CategoriesContainer
 							key={i}
-							id={elem._id}
-							name={elem.name}
-							author={elem.author}
-							createdAt={elem.createdAt}
+							categ={elem}
 							index={i}
-							categories={categories}
 						/>
 					))}	
 				</tbody>					

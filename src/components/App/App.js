@@ -11,11 +11,16 @@ import { getArticles } from "../../actions/articles.actions.js";
 import ArticleContainer from "../Article/ArticleContainer.js";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "../../utils/axios.utils";
+import Categories from "../AdminPanel/Categories/Categories.js";
+import Reports from "../AdminPanel/Reports/Reports.js";
+import Contacts from "../AdminPanel/Contacts/Contacts.js";
+import ArticleCreation from "../AdminPanel/ArticleCreation/ArticleCreation.js";
 
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
+	Redirect,
 } from "react-router-dom";
 
 function App() {
@@ -33,7 +38,6 @@ function App() {
 			dispatch(getArticles(response.data.articles)); 				
 		}).catch(error =>  {
 			console.log(error);
-
 		});
 			
 	}, []);
@@ -45,9 +49,29 @@ function App() {
 				<Switch>
 					<Route exact path="/" component={Feed} />			
 					<Route path="/articles/:id" component={ArticleContainer} />				
-					<Route path="/admin" component={AdminPanel} />
 					<Route path="/registration" component={Registration} />
 					<Route path="/login" component={LoginPopup} />
+					<Redirect exact from="/admin" to="/admin/articles"/>
+					<Route path="/admin/articles">
+						<AdminPanel>
+							<ArticleCreation  />
+						</AdminPanel>						
+					</Route>
+					<Route path="/admin/categories">
+						<AdminPanel>
+							<Categories />
+						</AdminPanel>						
+					</Route>
+					<Route path="/admin/reports"> 
+						<AdminPanel>
+							<Reports />
+						</AdminPanel>
+					</Route>
+					<Route path="/admin/contacts">
+						<AdminPanel>
+							<Contacts />
+						</AdminPanel>
+					</Route>
 				</Switch>	
 				<Footer />		
 			</div>

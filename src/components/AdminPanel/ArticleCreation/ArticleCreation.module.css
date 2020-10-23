@@ -58,9 +58,9 @@
 
 .caption {
 	text-align: center;
-	margin-top: 20px;
 	margin-bottom: 15px;
 	font-size: 25px;
+	padding: 15px;
 }
 
 .back {
@@ -76,6 +76,7 @@
 	padding: 5px;
 	border-radius: 8px;
 	width: 115px;
+	margin-bottom: 15px;
 }
 
 .select {
@@ -83,4 +84,13 @@
 	border-radius: 8px;
 	width: 115px;
 	margin: 15px 0px;
+}
+
+.report {
+	width: 80%;
+	border-radius: 8px;
+	margin-bottom: 10px;
+	padding: 10px;
+	background-color: salmon;
+	margin: 20px auto;
 }

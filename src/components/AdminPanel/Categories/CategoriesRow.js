@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import styles from "./Categories.module.css";
-import { isExist }  from "../../../utils/isExist.utils.js";
 import { format } from  "date-fns";
 import ruLocale from "date-fns/locale/ru";
 import axios from "../../../utils/axios.utils";
 import { useDispatch } from "react-redux";
 import { removeCategory, changeCategory } from "../../../actions/categories.actions.js";
 
-function CategoriesRow(props) {
+function CategoriesRow({ categ, index }) {
 
+	console.log("render categories-row");
 	const dispatch = useDispatch();
-	const [category, setCategory] = useState(props.name);
+	const [category, setCategory] = useState(categ.name);
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [error, setError] = useState(false);
-	const propsDate = new Date(props.createdAt);
+	const propsDate = new Date(categ.createdAt);
 	const date = format(
 		propsDate,
 		"dd/MM/yyyy HH:mm",
@@ -22,24 +22,21 @@ function CategoriesRow(props) {
 	);
 	
 	const saveChanges = () => {
-		const isValid = isExist("name", category, props.categories);
 
-		if (!isValid || category === props.name) {
-			const obj = {
-				name: category,
-				author: props.author,
-				id: props.id,
-			};
+		const obj = {
+			name: category,
+			author: categ.author,
+			id: categ._id,
+		};
 
-			axios.PUT("/categories", obj).then(() => {	
-				dispatch(changeCategory(props.id, category));
-				setIsEditMode(false);
-			}).catch(error =>  {
-				console.log(error);
-			});		
-		} else {
+		axios.PUT("/categories", obj).then(() => {	
+			dispatch(changeCategory(categ._id, category));
+			setIsEditMode(false);
+		}).catch(error =>  {
+			console.log(error);
 			setError(true);
-		}		
+		});		
+	
 	};
 
 	const changeRow = (e) => {
@@ -48,10 +45,10 @@ function CategoriesRow(props) {
 	};
 
 	const deleteCategory = () => {
-		const id = props.id;
+		const id = categ._id;
 
 		axios.DELETE("/categories", { id }).then(() => {	
-			dispatch(removeCategory(props.id));
+			dispatch(removeCategory(categ._id));
 		}).catch(error =>  {
 			console.log(error);
 		});
@@ -60,12 +57,12 @@ function CategoriesRow(props) {
 	return (	
 		
 		<tr>
-			<td className={styles.cell}>{props.index + 1}</td>
+			<td className={styles.cell}>{index + 1}</td>
 			<td className={styles.cell}>
-				{isEditMode ? <input className={styles.rowInput} value={category} onChange={changeRow} /> : props.name}
+				{isEditMode ? <input className={styles.rowInput} value={category} onChange={changeRow} /> : categ.name}
 				{error && <div className={styles.errorText}>Такая категория уже существует!</div>}
 			</td>
-			<td className={styles.cell}>{props.author}</td>
+			<td className={styles.cell}>{categ.author}</td>
 			<td className={styles.cell}>{date}</td>
 			<td className={styles.cell}>
 				{isEditMode &&  <button onClick={saveChanges}>Сохранить</button>}

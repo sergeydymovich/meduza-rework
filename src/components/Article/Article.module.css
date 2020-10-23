@@ -5,6 +5,7 @@
     border-radius: 10px;
     position: relative;
     outline: none;
+    margin-bottom: 15px;
 }
 
 .title {
@@ -54,4 +55,40 @@
     display: flex;
     justify-content: center;
     margin-top: 200px;
+  }
+
+  .report {
+      background-color: white;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: salmon;
+      position: relative;
+  }
+
+  .change {
+      width: 25px;
+      height: 25px;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+  }
+
+  .changeContainer {
+    max-width: 1100px;
+    margin: 0px auto;
+    background-color: #d8d8d8;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
+
+  .succesReport {
+    text-align: center;
+    border: 2px solid green;
+    font-size: 23px;
+    border-radius: 8px;
+    padding: 5px;
+    color: green;
   }

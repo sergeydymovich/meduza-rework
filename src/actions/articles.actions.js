@@ -1,7 +1,7 @@
 export const GET_ARTICLES = "GET_ARTICLES";
 export const CHANGE_ARTICLE = "CHANGE_ARTICLE";
 export const ADD_ARTICLE = "ADD_ARTICLE";
-export const REMOVE_ARTICLE = "REMOVE_ARTICLE";
+export const DELETE_ARTICLE = "DELETE_ARTICLE";
 
 export const getArticles = (articles) => (
 	{
@@ -32,7 +32,7 @@ export const changeArticle = (article) => (
 
 export const deleteArticle = (id) => (
 	{
-		type: REMOVE_ARTICLE,
+		type: DELETE_ARTICLE,
 		payload: {
 			id,
 		}
